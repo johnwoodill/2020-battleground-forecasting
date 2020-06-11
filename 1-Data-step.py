@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def proc_pollData(swing_states):
@@ -7,19 +8,23 @@ def proc_pollData(swing_states):
 
     ### Keep swing states
     dat = dat[dat['state'].isin(swing_states)]
-
+    
     ### Get date
     dat.loc[:, 'date'] = pd.to_datetime(dat['end_date'], format = "%m/%d/%y")
 
     ### Keep obs greater than 04/08/2020
     dat = dat[dat['date'] >= pd.to_datetime("2020-04-08")]
     
+    ### Recode candidate_name
+    dat['candidate'] = dat['candidate_name'].replace("Joseph R. Biden Jr.", "Biden")
+    dat['candidate'] = dat['candidate'].replace("Donald Trump", "Trump")
+    
+    ### Average daily polls
+    dat = dat.groupby(['date', 'state', 'candidate'])['pct'].mean().reset_index()
+    
     ### Convert pct to decimal 
     dat.loc[:, 'pct'] = dat['pct']/100
-    
-    ### Select columns    
-    dat = dat[['date', 'state', 'answer', 'pct']]
-    
+
     return dat
 
 
