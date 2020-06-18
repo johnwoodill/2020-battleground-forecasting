@@ -37,7 +37,7 @@ def proc_stan(c, s, dat):
     ### Get fitted values (can sample up to iterations)
     fv = fit.to_dataframe(pars='predicted_y').reset_index(drop=True)
     fv = fv[[col for col in fv if col.startswith('predicted_y')]]
-        
+    
     ### Order and rename predicted_y (rework)
     col_df = pd.DataFrame({'colnames': fv.columns})
     col_df['colnames'] = col_df['colnames'].str.extract('(\d+)')

@@ -14,3 +14,4 @@ ggplot() +
   facet_wrap(~state) +
   NULL
 
+ggsave("figures/GP_model_results.png", width=18, height = 12)
