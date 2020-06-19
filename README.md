@@ -3,4 +3,4 @@
 <p align="center">
 
 <img align="center" width = "800"
-src="https://github.com/johnwoodill/2020-battleground-forecasting/raw/master/figures/swing_gp_predictions.jpg">
+src="https://github.com/johnwoodill/2020-battleground-forecasting/raw/master/figures/GP_model_results.png">
