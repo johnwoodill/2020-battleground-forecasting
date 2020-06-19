@@ -4,31 +4,44 @@ import pystan
 import os
 from datetime import date
 import time
+import logging
 
 
 def proc_stan(c, s, dat):
+    '''
+    Process stan model for candidate, c, and state, c.
+        Args:
+            c: int candidate
+            s: int state
+            dat: data in
+        Returns: 
+            Pandas DataFrame with results
+    '''
+    print(f"Processing GP Model: {SWING_STATES[s]}-{CANDIDATE[c]}")
+    
     ### Get c, s data
     dat_mod = dat[(dat['state'] == SWING_STATES[s]) & (dat['candidate'] == CANDIDATE[c])]
-     
+    
     ### Get ndays from 2020-04-08
-    dat_mod.loc[:, 'days'] = dat_mod.apply(lambda x: (pd.to_datetime(x['date']) - 
+    ndays = dat_mod.apply(lambda x: (pd.to_datetime(x['date']) - 
                                            pd.to_datetime("2020-04-08")).days, axis=1)
-      
+    dat_mod = dat_mod.assign(days = ndays)  
+    
     ### Sort by days
     dat_mod = dat_mod.sort_values('days').reset_index(drop=True)
     
     ### Make stan data 
-    
     stan_dat = dict(N = len(dat_mod), 
                     x = dat_mod['days'], 
                     y = dat_mod['pct'])
     
     ### Setup and fit stan model
-    model = pystan.StanModel(file='gp.stan')  
+    model = pystan.StanModel(file='gp.stan', model_name='elec_forecast', verbose=False)  
               
     fit = model.sampling(data=stan_dat, 
                          iter=4000, 
-                         chains=4)
+                         chains=4,
+                         verbose=False)
                          
     # control=dict(adapt_delta=.9)    
     # WARNING:pystan:91 of 8000 iterations ended with a divergence (1.14 %).
@@ -63,11 +76,14 @@ def proc_stan(c, s, dat):
 
 
 if __name__ == "__main__":
-
+    
     ### Constants
-    SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania"]
-    CANDIDATE = ["Biden", "Trump"]
+    SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania",
+                    "Texas", "Georgia", "Iowa", "Ohio", "Virginia", "Colorado"]
 
+    CANDIDATE = ["Biden", "Trump"]
+    
+    
     ### Get processed data
     print("[3] Reading: './data/processed_538_polling_data.csv'")
     dat = pd.read_csv('./data/processed_538_polling_data.csv')

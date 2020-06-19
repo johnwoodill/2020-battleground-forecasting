@@ -2,28 +2,32 @@ import pandas as pd
 import numpy as np
 
 
-def proc_pollData(swing_states):
+def proc_pollData(SWING_STATES):
+    '''
+    Process 538 online polling data
+        Args:
+            SWING_STATES: list of swing states
+        Returns: 
+            Pandas DataFrame with results
+    '''
     ### Load and filter data
     dat = pd.read_csv("https://projects.fivethirtyeight.com/polls-page/president_polls.csv") 
 
     ### Keep swing states
-    dat = dat[dat['state'].isin(swing_states)]
+    dat = dat[dat['state'].isin(SWING_STATES)]
     
     ### Get date
-    dat.loc[:, 'date'] = pd.to_datetime(dat['end_date'], format = "%m/%d/%y")
+    dat = dat.assign(date = pd.to_datetime(dat['end_date'], format = "%m/%d/%y"))
 
     ### Keep obs greater than 04/08/2020
     dat = dat[dat['date'] >= pd.to_datetime("2020-04-08")]
     
-    ### Recode candidate_name
-    dat['candidate'] = dat['candidate_name'].replace("Joseph R. Biden Jr.", "Biden")
-    dat['candidate'] = dat['candidate'].replace("Donald Trump", "Trump")
-    
-    ### Average daily polls
-    dat = dat.groupby(['date', 'state', 'candidate'])['pct'].mean().reset_index()
-    
     ### Convert pct to decimal 
-    dat.loc[:, 'pct'] = dat['pct']/100
+    dat = dat.assign(pct = dat['pct']/100)
+    
+    ### Get columns and rename
+    dat = dat[['date', 'state', 'answer', 'pct']]
+    dat = dat.rename(columns={'answer': 'candidate'})
 
     return dat
 
@@ -32,7 +36,8 @@ def proc_pollData(swing_states):
 if __name__ == "__main__":
     
     ### Constants
-    SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania"]
+    SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania",
+                    "Texas", "Georgia", "Iowa", "Ohio", "Virginia", "Colorado"]
     CANDIDATE = ["Biden", "Trump"]
 
 
