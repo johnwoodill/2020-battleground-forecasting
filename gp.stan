@@ -30,8 +30,8 @@ model {
   }
 
   rho ~ inv_gamma(5, 5);
-  alpha ~ normal(0, 1);
-  sigma ~ normal(0, 1);
+  alpha ~ normal(0, 0.1);
+  sigma ~ normal(0, 0.05);
   eta ~ normal(0, 1);
 
   y ~ normal(f, sigma);
