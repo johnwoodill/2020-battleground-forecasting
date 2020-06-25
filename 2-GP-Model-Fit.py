@@ -78,15 +78,18 @@ def proc_stan(c, s, dat):
 if __name__ == "__main__":
     
     ### Constants
-    SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania",
-                    "Texas", "Georgia", "Iowa", "Ohio", "Virginia", "Colorado"]
+    # SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania",
+    #                 "Texas", "Georgia", "Iowa", "Ohio", "Virginia", "Colorado"]
+
+    SWING_STATES = ["NC", "MI", "AZ", "WI", "FL", "PA",
+                    "TX", "GA", "IA", "OH", "VA", "CO"]
 
     CANDIDATE = ["Biden", "Trump"]
     
     
     ### Get processed data
-    print("[3] Reading: './data/processed_538_polling_data.csv'")
-    dat = pd.read_csv('./data/processed_538_polling_data.csv')
+    print("[3] Reading: './data/processed_economist_data.csv'")
+    dat = pd.read_csv('./data/processed_economist_data.csv')
     
     ### List compress results    
     print(f"[4] Processing Stan Model for: {SWING_STATES}")
