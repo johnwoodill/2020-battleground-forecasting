@@ -15,17 +15,14 @@ jobs:
 #        aws-region: us-west-2
 
     - name: Checkout Repo
-      uses: actions/checkout@v1
-   
+      uses: actions/checkout@v1   
     - name: Process Model
       run: |
         python 1-Data-step.py
-
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.TOKEN }}
-
     - name: Stop AWS EC2
       run: |
         #aws ec2 stop-instances --instance-ids i-0c3edd98087da7524 | at now + 1 minute
