@@ -30,8 +30,8 @@ model {
   }
 
   rho ~ inv_gamma(5, 5);
-  alpha ~ normal(0, 0.05);  //wiggle magnitude (change from pt to pt)
-  sigma ~ normal(0, 0.07);  //model error
+  alpha ~ normal(0, 0.07);  //wiggle magnitude (change from pt to pt)
+  sigma ~ normal(0, 0.08);  //model error
   eta ~ normal(0, 1);
 
   y ~ normal(f, sigma);
