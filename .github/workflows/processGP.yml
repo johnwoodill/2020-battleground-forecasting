@@ -1,6 +1,8 @@
 name: Process GP Election Model
 
-on: [push]
+on:
+  repository_dispatch:
+    types: trigger-model
 
 jobs:
   build:
@@ -28,4 +30,4 @@ jobs:
     
     - name: Stop AWS EC2
       run: |
-        #aws ec2 stop-instances --instance-ids i-0c3edd98087da7524 | at now + 1 minute
+        aws ec2 stop-instances --instance-ids i-0c3edd98087da7524 | at now + 1 minute
