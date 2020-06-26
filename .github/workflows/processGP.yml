@@ -19,7 +19,7 @@ jobs:
 
     - name: Process Model
       run: |
-        python 1-Data-step.py
+        python 0-Process-model.py
     
     - name: Push changes
       uses: ad-m/github-push-action@master
