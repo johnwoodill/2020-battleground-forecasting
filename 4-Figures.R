@@ -18,8 +18,8 @@ ggplot() +
   theme(legend.position="none") +
   ylim(.20, .80) +
   labs(x=NULL, y="Share of Vote") +
-  facet_wrap(~state, ncol = 3) +
+  facet_wrap(~state, ncol = 2) +
   NULL
 
 
-ggsave("figures/GP_model_results.png", width=18, height = 12)
+ggsave("figures/GP_model_results.png", width=12, height = 16)
