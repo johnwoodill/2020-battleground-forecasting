@@ -34,7 +34,7 @@ model {
   alpha ~ normal(0, 0.07);  //wiggle magnitude (change from pt to pt)
   sigma ~ normal(0, 0.08);  //model error
   eta ~ normal(0, 1);
-  gamma ~ normal(0.5, 0.02);
+  gamma ~ normal(0.5, 0.1);
 
   y ~ normal(gamma + f, sigma);
 }
