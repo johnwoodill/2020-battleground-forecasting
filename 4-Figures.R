@@ -1,5 +1,5 @@
 library(ggplot2)
-library(ggplotFL)
+
 
 ### Load result data
 dat = read.csv("data/model_results.csv", stringsAsFactors = FALSE)
