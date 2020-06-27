@@ -25,9 +25,8 @@ jobs:
 
     - name: Process Model
       run: |
-        #python 0-Process-model.py
-        Rscript 4-Figures.R
-    
+        python 0-Process-model.py
+            
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
