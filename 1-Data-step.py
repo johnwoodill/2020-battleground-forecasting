@@ -14,6 +14,9 @@ def proc_pollData(SWING_STATES):
     # dat = pd.read_csv("https://projects.fivethirtyeight.com/polls-page/president_polls.csv") 
     dat = pd.read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ56fySJKLL18Lipu1_i3ID9JE06voJEz2EXm6JW4Vh11zmndyTwejMavuNntzIWLY0RyhA1UsVEen0/pub?gid=0&single=true&output=csv")
 
+    ### Convert state abb to full
+    dat = dat.assign(state = dat['state'].map(states))
+
     ### Keep swing states
     dat = dat[dat['state'].isin(SWING_STATES)]
     
@@ -45,14 +48,25 @@ def proc_pollData(SWING_STATES):
 if __name__ == "__main__":
     
     ### Constants
-    # SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania",
-    #                 "Texas", "Georgia", "Iowa", "Ohio", "Virginia", "Colorado"]
-
-    SWING_STATES = ["NC", "MI", "AZ", "WI", "FL", "PA",
-                    "TX", "GA", "IA", "OH", "VA", "CO"]
+    states = {
+        "NC": "North Carolina", 
+        "MI": "Michigan", 
+        "AZ": "Arizona", 
+        "WI": "Wisconsin",
+        "FL": "Florida", 
+        "PA": "Pennsylvania",
+        "TX": "Texas", 
+        "GA": "Georgia",
+        "IA": "Iowa",
+        "OH": "Ohio",
+        "VA": "Virginia",
+        "CO": "Colorado"
+    }
     
-    CANDIDATE = ["Biden", "Trump"]
+    SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania",
+                    "Texas", "Georgia", "Iowa", "Ohio", "Virginia", "Colorado"]
 
+    CANDIDATE = ["Biden", "Trump"]
 
     ### Get and process The Economist polling data
     print("[1] Processing The Economist polling data")

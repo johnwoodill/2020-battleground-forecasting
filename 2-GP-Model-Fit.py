@@ -78,11 +78,8 @@ def proc_stan(c, s, dat):
 if __name__ == "__main__":
     
     ### Constants
-    # SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania",
-    #                 "Texas", "Georgia", "Iowa", "Ohio", "Virginia", "Colorado"]
-
-    SWING_STATES = ["NC", "MI", "AZ", "WI", "FL", "PA",
-                    "TX", "GA", "IA", "OH", "VA", "CO"]
+    SWING_STATES = ["North Carolina", "Michigan", "Arizona", "Wisconsin", "Florida", "Pennsylvania",
+                    "Texas", "Georgia", "Iowa", "Ohio", "Virginia", "Colorado"]
 
     CANDIDATE = ["Biden", "Trump"]
     
