@@ -1,11 +1,12 @@
 library(ggplot2)
+library(ggplotFL)
 
 ### Load result data
-dat = read.csv("data/model_results.csv", stringsAsFactors = False)
+dat = read.csv("data/model_results.csv", stringsAsFactors = FALSE)
 dat$date = as.Date(dat$date, format='%Y-%m-%d')
 
 ### Load polling data
-pdat = read.csv("data/processed_economist_data.csv", stringsAsFactors = False)
+pdat = read.csv("data/processed_economist_data.csv", stringsAsFactors = FALSE)
 pdat$date = as.Date(pdat$date, format='%Y-%m-%d')
 
 
