@@ -1,0 +1,45 @@
+### Fresh install
+sudo apt-get update
+
+### Install Anaconda
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh 
+./Miniconda3-latest-Linux-x86_64.sh 
+conda update conda
+conda install gcc_linux-64 gxx_linux-64 -c anaconda
+
+### Install R
+sudo apt-get install r-base r-base-dev
+
+### Install python packages
+conda install pandas numpy
+
+### Install dependencies
+sudo apt-get install build-essential libcurl4-openssl-dev libssl-dev libxml2-dev g++ docker docker.io
+
+### Install pystan
+conda install -c conda-forge pystan
+
+### Install Github Runner
+mkdir actions-runner && cd actions-runner
+curl -O -L https://github.com/actions/runner/releases/download/v2.169.1/actions-runner-linux-x64-2.169.1.tar.gz
+tar xzf ./actions-runner-linux-x64-2.169.1.tar.gz
+
+### Config with unique token (needs to change each fresh install)
+./config.sh --url https://github.com/johnwoodill/2020-battleground-forecasting --token {}
+
+### To start runner
+./run.sh 
+
+### Instead of starting runner, start as service each time
+sudo ./svc.sh install
+sudo ./svc.sh start
+sudo ./svc.sh status
+
+### Set docker group for aws actions login
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+
+### Reboot changes
+sudo reboot now
+  
