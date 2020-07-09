@@ -13,6 +13,7 @@ parameters {
   real<lower=0> alpha;
   real<lower=0> sigma;
   vector[N] eta;
+  real gamma;
 }
 
 model {
@@ -33,8 +34,9 @@ model {
   alpha ~ normal(0, 0.07);  //wiggle magnitude (change from pt to pt)
   sigma ~ normal(0, 0.08);  //model error
   eta ~ normal(0, 1);
+  gamma ~ normal(0.5, 0.05);
 
-  y ~ normal(f, sigma);
+  y ~ normal(gamma + f, sigma);
 }
 
 generated quantities {
@@ -53,5 +55,5 @@ generated quantities {
   }
   
   for (i in 1:N)
-  predicted_y[i] = normal_rng(f_new[i], sigma);
+  predicted_y[i] = normal_rng(gamma + f_new[i], sigma);
 }
